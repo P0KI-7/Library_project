@@ -1,0 +1,12 @@
+# игнорировать папку
+.vscode/
+build/
+
+*.o
+*.a
+.DS_Store 
+
+# чтобы в будущих проверках 
+# не загружались данные на git
+library_data.txt
+main.exe
