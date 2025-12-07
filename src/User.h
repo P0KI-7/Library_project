@@ -16,14 +16,14 @@ public:
     User(const User& other);
 
     // Методы
-    inline std::string  getName() const;
-    inline std::string& getName();
-    inline std::string  getUserID() const;
-    inline std::string& getUserID();
-    inline std::vector<std::string>  getBorrowBooks() const;
-    inline std::vector<std::string>& getBorrowBooks();
-    inline int  getMaxBooksAllowed() const;
-    inline int& getMaxBooksAllowed();
+    std::string  getName() const;
+    std::string& getName();
+    std::string  getUserID() const;
+    std::string& getUserID();
+    std::vector<std::string>  getBorrowBooks() const;
+    std::vector<std::string>& getBorrowBooks();
+    int  getMaxBooksAllowed() const;
+    int& getMaxBooksAllowed();
 
     bool canBorrowMore();                        // может ли ещё взять книгу
     void addBook(const std::string& isbn); // добавить книгу в список взятых

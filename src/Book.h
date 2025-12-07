@@ -18,18 +18,18 @@ public:
     Book(const Book& other);
 
     // Методы
-    inline std::string  getTitle() const;
-    inline std::string& getTitle();
-    inline std::string  getAuthor() const;
-    inline std::string& getAuthor();
-    inline int  getYear() const;
-    inline int& getYear();
-    inline std::string  getIsbn() const;
-    inline std::string& getIsbn();
-    inline bool  getIsAvailable() const;
-    inline bool& getIsAvailable();
-    inline std::string  getBorrowedBy() const;
-    inline std::string& getBorrowedBy();
+    std::string  getTitle() const;
+    std::string& getTitle();
+    std::string  getAuthor() const;
+    std::string& getAuthor();
+    int  getYear() const;
+    int& getYear();
+    std::string  getIsbn() const;
+    std::string& getIsbn();
+    bool  getIsAvailable() const;
+    bool& getIsAvailable();
+    std::string  getBorrowedBy() const;
+    std::string& getBorrowedBy();
 
     void borrowBook(const std::string& userName);//выдыть книгу
     void returnBook();                          //вернуть книгу 
