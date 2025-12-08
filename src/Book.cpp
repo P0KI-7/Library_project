@@ -34,3 +34,35 @@ bool  Book::getIsAvailable() const {return isAvailable;}
 bool& Book::getIsAvailable()       {return isAvailable;}
 std::string  Book::getBorrowedBy() const {return borrowedBy;}
 std::string& Book::getBorrowedBy()       {return borrowedBy;}
+
+
+// Логика основного функционала
+
+void Book::borrowBook(const std::string& userName)
+{
+  if (isAvailable){
+    isAvailable = 0;
+    borrowedBy = userName;
+  } 
+  else
+  {
+    std::cout << "Книга уже занята :(" << std::endl;
+  }
+}
+
+void Book::returnBook()
+{
+  isAvailable = 1;
+  borrowedBy = "";
+}
+
+void Book::displayInfo()
+{
+  std::cout << "BOOK" << std::endl;
+  std::cout << "Title: " << title << std::endl;
+  std::cout << "Author: " << author << std::endl;
+  std::cout << "Year: " << year << std::endl;
+  std::cout << "ISBN: " << isbn << std::endl;
+  std::cout << "Available: " << (isAvailable ? "yes" : "no") << std::endl;
+  std::cout << "BorrowedBy: " << borrowedBy << std::endl;
+}
