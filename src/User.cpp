@@ -18,3 +18,13 @@ User::User(const User& other)
       borrowBooks(other.borrowBooks), maxBooksAllowed(other.maxBooksAllowed)
 {
 }
+
+// Методы
+std::string  User::getName()  const {return name;}
+std::string& User::getName()        {return name;}
+std::string  User::getUserID() const {return userID;}
+std::string& User::getUserID()       {return userID;}
+std::vector<std::string>  User::getBorrowBooks() const {return borrowBooks;};
+std::vector<std::string>& User::getBorrowBooks()       {return borrowBooks;}; 
+int  User::getMaxBooksAllowed() const {return maxBooksAllowed;};
+int& User::getMaxBooksAllowed()       {return maxBooksAllowed;};
