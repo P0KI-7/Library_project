@@ -27,7 +27,7 @@ public:
 
     bool canBorrowMore();                        // может ли ещё взять книгу
     void addBook(const std::string& isbn); // добавить книгу в список взятых
-    void removeBood(const std::string& isbn);      // убрать книгу из списка
+    void removeBook(const std::string& isbn);      // убрать книгу из списка
     void displayProfile();                    //вывести профиль пользователя
 };
 #endif //User_h

@@ -41,7 +41,7 @@ void User::addBook(const std::string& isbn)
     borrowBooks.push_back(isbn);
 }
 
-void User::removeBood(const std::string& isbn)
+void User::removeBook(const std::string& isbn)
 {
     size_t index = -1;
     for (size_t i = 0; i < borrowBooks.size(); ++i){
