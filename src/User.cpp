@@ -67,7 +67,7 @@ void User::displayProfile()
     
     size_t i = 0; 
     std::cout << "BorrowedBooks: "<< ((i < borrowBooks.size())?borrowBooks[i++]:"");
-    while (i < borrowBooks.size() && borrowBooks[i] != "") {
+    while (i < borrowBooks.size()) {
         std::cout << " | " << borrowBooks[i++];
     }
     std::cout << std::endl;
