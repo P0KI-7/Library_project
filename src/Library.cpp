@@ -86,7 +86,22 @@ Library::Library(std::string dataFile)
                     tempUser.getUserID() = value;
                 }
                 else if (key == "BorrowedBooks"){
-                    tempUser.getBorrowBooks().push_back(value);
+                    size_t start = 0;
+                    size_t end = value.find('|');
+                    
+                    while (end != std::string::npos) {
+                        std::string isbn = value.substr(start, end - start);
+                        if (!isbn.empty()) {
+                            tempUser.getBorrowBooks().push_back(isbn);
+                        }
+                        start = end + 1;
+                        end = value.find('|', start);
+                    }
+                    
+                    std::string lastIsbn = value.substr(start);
+                    if (!lastIsbn.empty()) {
+                        tempUser.getBorrowBooks().push_back(lastIsbn);
+                    }
                 }
                 else if (key == "MaxBooks"){
                     tempUser.getMaxBooksAllowed() = std::stoi(value);
@@ -105,3 +120,14 @@ Library::Library(std::string dataFile)
     
     file.close();
 }
+
+void Library::addBook(const Book& book)
+{
+    books.push_back(book);
+}
+
+void  Library::addUser(const User& user)
+{
+    users.push_back(user);
+}
+

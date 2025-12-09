@@ -28,3 +28,49 @@ std::vector<std::string>  User::getBorrowBooks() const {return borrowBooks;};
 std::vector<std::string>& User::getBorrowBooks()       {return borrowBooks;}; 
 int  User::getMaxBooksAllowed() const {return maxBooksAllowed;};
 int& User::getMaxBooksAllowed()       {return maxBooksAllowed;};
+
+// Логика основного функционала
+
+bool User::canBorrowMore()
+{
+    return (maxBooksAllowed >= borrowBooks.size()+1) ? 1 : 0;
+}
+
+void User::addBook(const std::string& isbn)
+{
+    borrowBooks.push_back(isbn);
+}
+
+void User::removeBood(const std::string& isbn)
+{
+    size_t index = -1;
+    for (int i = 0; i < borrowBooks.size(); ++i){
+        if (borrowBooks[i] == isbn) {
+            index = i;
+            break;
+        }
+    }
+
+    if (index != -1){
+        borrowBooks.erase(borrowBooks.begin() + index);
+    }
+    else{
+        std::cout << "Эта книга не счислиться у пользователя." << std::endl;
+    }
+}
+
+void User::displayProfile()
+{
+    std::cout << "USER" << std::endl;
+    std::cout << "Name: " << name << std::endl;
+    std::cout << "UserID: " << userID << std::endl;
+    
+    int i = 0; 
+    std::cout << "BorrowedBooks: "<< ((i < borrowBooks.size())?borrowBooks[i++]:"");
+    while (i < borrowBooks.size() && borrowBooks[i] != "") {
+        std::cout << " | " << borrowBooks[i++];
+    }
+    std::cout << std::endl;
+
+    std::cout << "MaxBooks: " << maxBooksAllowed << std::endl;
+}
