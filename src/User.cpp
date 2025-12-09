@@ -44,7 +44,7 @@ void User::addBook(const std::string& isbn)
 void User::removeBood(const std::string& isbn)
 {
     size_t index = -1;
-    for (int i = 0; i < borrowBooks.size(); ++i){
+    for (size_t i = 0; i < borrowBooks.size(); ++i){
         if (borrowBooks[i] == isbn) {
             index = i;
             break;
@@ -65,7 +65,7 @@ void User::displayProfile()
     std::cout << "Name: " << name << std::endl;
     std::cout << "UserID: " << userID << std::endl;
     
-    int i = 0; 
+    size_t i = 0; 
     std::cout << "BorrowedBooks: "<< ((i < borrowBooks.size())?borrowBooks[i++]:"");
     while (i < borrowBooks.size() && borrowBooks[i] != "") {
         std::cout << " | " << borrowBooks[i++];
