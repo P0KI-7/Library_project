@@ -1,4 +1,5 @@
 #include <string>
+#include <stdexcept>
 
 #ifndef Book_h
 #define Book_h

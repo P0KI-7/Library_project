@@ -1,6 +1,9 @@
 #include "Book.h"
 #include "User.h"
 
+#include <string>
+#include <stdexcept>
+
 #ifndef Library_h
 #define Library_h
 class Library{

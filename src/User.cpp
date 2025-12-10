@@ -38,6 +38,12 @@ bool User::canBorrowMore()
 
 void User::addBook(const std::string& isbn)
 {
+    for (const auto& book : borrowBooks) {
+        if (book == isbn) {
+            throw std::runtime_error("Книга с ISBN '" + isbn + "' уже числится у пользователя.");
+        }
+    }
+    
     borrowBooks.push_back(isbn);
 }
 

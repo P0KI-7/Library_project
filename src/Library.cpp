@@ -13,12 +13,27 @@ Library::Library(std::string dataFile)
 
 void Library::addBook(const Book& book)
 {
+    if (book.getYear() < 1450 || book.getYear() > 2025) {
+        throw std::invalid_argument("Некорректный год издания.");
+    }
+    if (book.getIsbn().empty()) {
+      throw std::invalid_argument("ISBN не может быть пустым.");
+    }
+    
+    for (const auto& existingBook : books) {
+        if (existingBook.getIsbn() == book.getIsbn()) {
+            throw std::runtime_error("Книга с ISBN '" + book.getIsbn() + "' уже существует в библиотеке.");
+        }
+    }
+
     books.push_back(book);
+    std::cout << "Книга успешна записана." << std::endl;
 }
 
 void  Library::addUser(const User& user)
 {
     users.push_back(user);
+    std::cout << "Пользователь успешно зарегеистрирован." << std::endl;
 }
 
 Book* Library::findBookByISBN(const std::string& isbn)
@@ -45,43 +60,49 @@ void  Library::borrowBook(const std::string& userName, const std::string& isbn)
 {
     Book* tempBook = findBookByISBN(isbn);
     User* tempUser = findUserByName(userName);
-    if (tempBook != nullptr && tempUser != nullptr) {
-        if ((*tempUser).canBorrowMore()){
-            (*tempBook).borrowBook(userName);
-            (*tempUser).addBook(isbn);
-        }
-        else{
-            std::cout << "Пользователь не может взять больше книг." << std::endl;
-        }
+    
+    if (tempBook == nullptr) {
+        throw std::runtime_error("Книга с ISBN '" + isbn + "' не найдена.");
     }
-    else if (tempBook == nullptr && tempUser == nullptr) {
-        std::cout << "Книга и пользователь не найдены." << std::endl;
+    
+    if (tempUser == nullptr) {
+        throw std::runtime_error("Пользователь '" + userName + "' не найден.");
     }
-    else if (tempBook == nullptr) {
-        std::cout << "Книга не найдена." << std::endl;
+    
+    if (!tempBook->getIsAvailable()) {
+        throw std::runtime_error("Книга '" + isbn + "' уже занята.");
     }
-    else {
-        std::cout << "Ползователь не найдена." << std::endl;
+    
+    if (!tempUser->canBorrowMore()) {
+        throw std::runtime_error("Пользователь '" + userName + "' не может взять больше книг.");
     }
+
+    tempBook->borrowBook(userName);
+    tempUser->addBook(isbn);
+    std::cout << "Книга успешно выдана. Хорошего чтения!" << std::endl;
 }
 
 void  Library::returnBook(const std::string& isbn)
 {
-    Book* tempBook = findBookByISBN(isbn);
-    if (tempBook != nullptr) {
-        std::string userName = (*tempBook).getBorrowedBy();
-        User* tempUser = findUserByName(userName);
-        if (tempUser != nullptr) {
-            (*tempBook).returnBook();
-            (*tempUser).removeBook(isbn);
-        }
-        else {
-            std::cout << "Незарегистрированный пользователь." << std::endl;
-        }
+    Book* book = findBookByISBN(isbn);
+
+    if (!book) {
+        throw std::runtime_error("Книга не найдена: " + isbn);
     }
-    else {
-        std::cout << "Незарегистрированная книга." << std::endl;
+    if (book->getIsAvailable()) {
+        throw std::runtime_error("Книга уже доступна");
     }
+    std::string userName = book->getBorrowedBy();
+    if (userName.empty()) {
+        throw std::runtime_error("Не указан пользователь");
+    }
+
+    User* user = findUserByName(userName);
+    if (!user) throw std::runtime_error("Пользователь не найден: " + userName);
+    
+    book->returnBook();
+    user->removeBook(isbn);
+    std::cout << "Книга возвращена успешно. Спасибо, что вернули книгу!" << std::endl;
 }
 
 void  Library::displayAllBooks()
@@ -145,6 +166,7 @@ void  Library::saveToFile()
     
     file.close();
     std::cout << "Data saved to " << dataFile << std::endl;
+    std::cout << "Сохранение успешно." << std::endl;
 }
 
 void  Library::loadFromFile()

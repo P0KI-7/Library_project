@@ -13,6 +13,13 @@ Book::Book(std::string title, std::string author, int year, \
     : title(title), author(author), year(year),\
       isbn(isbn), isAvailable(isAvailable), borrowedBy(borrowedBy)
 {
+  if (year < 1450 || year > 2025) {
+        throw std::invalid_argument("Некорректный год издания.");
+  }
+
+  if (isbn.empty()) {
+      throw std::invalid_argument("ISBN не может быть пустым.");
+  }
 }
 
 Book::Book(const Book& other) // Конструктор копирования
