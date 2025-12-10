@@ -32,6 +32,16 @@ void Library::addBook(const Book& book)
 
 void  Library::addUser(const User& user)
 {
+    for (const auto& existingUser : users) {
+        if (existingUser.getUserID() == user.getUserID()) {
+            throw std::runtime_error("Пользователь с ID '" + user.getUserID() + "' уже существует.");
+        }
+    }
+    for (const auto& existingUser : users) {
+        if (existingUser.getName() == user.getName()) {
+            throw std::runtime_error("Пользователь с именем '" + user.getName() + "' уже зарегистрирован.");
+        }
+    }
     users.push_back(user);
     std::cout << "Пользователь успешно зарегеистрирован." << std::endl;
 }
